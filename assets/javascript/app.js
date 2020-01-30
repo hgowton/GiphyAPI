@@ -1,5 +1,48 @@
+$(document).ready(function() {
 //Pregenerated array of buttons
 var animals = ["snake", "salamander", "beaver", "fish", "tadpole"];
+
+//queryURL to access Giphy API
+function displayAnimalInfo() {
+    var animal = $(this).attr("data-animal");
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=FxSy0NuHdoAdOmyUSNxmS0N5NET0TqeZ&limit=10";
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        var results = response.data
+        console.log(queryURL);
+        console.log(results);
+
+        //Creating a div to hold the animal
+        var animalDiv = $("div class='animal'>");
+
+        //Storing the rating data
+        var rating = results.data.data[2].rating;
+        console.log(results.data[2].rating)
+
+        //Creating a paragraph tag to hold the rating
+        var pOne = $("<p>").text("Rating: " + rating);
+
+        //Displaying the rating
+        animalDiv.append(pOne);
+
+        //Creating element to hold gif
+        var imgURL = response.data[2].url;
+        console.log(response.data[2].url);
+
+        //Creating the image location
+        var image = $("<img>").attr("src", imgURL);
+
+        //Displaying image
+        animalDiv.append(image);
+
+        //Adding the entire image and rating to the previous
+        $("#animals-view").prepend(animalDiv);
+
+    });
+}
 
 function createButtons() {
     //Creates buttons from the search
@@ -9,7 +52,7 @@ function createButtons() {
     for (var i = 0; i < animals.length; i++) {
 
         var a = $("<button>");
-        a.addClass("animalVar");
+        a.addClass("animal-btn");
         a.attr("data-animal", animals[i]);
         a.text(animals[i]);
         $("#buttons-view").append(a);
@@ -32,14 +75,7 @@ createButtons();
 
 });
 
+$(document).on("click", ".animal-btn", displayAnimalInfo);
+
 createButtons();
-
-//queryURL to access Giphy API
-var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=FxSy0NuHdoAdOmyUSNxmS0N5NET0TqeZ";
-
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function(response) {
-    console.log(response);
-});
+})
