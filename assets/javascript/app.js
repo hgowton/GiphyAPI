@@ -3,9 +3,8 @@ $(document).ready(function() {
     var animals = ["snake", "salamander", "beaver", "fish", "tadpole"];
     
         
-//queryURL to access Giphy API
-function displayAnimalInfo() {
-    $(document).on("click", ".animal-btn", function() {
+    //queryURL to access Giphy API
+    function displayAnimalInfo() {
         var animal = $(this).attr("data-animal");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=FxSy0NuHdoAdOmyUSNxmS0N5NET0TqeZ&limit=10";
 
@@ -31,7 +30,7 @@ function displayAnimalInfo() {
                     
                     //Creating element to hold gif
                     var gifURL = $("<img>");
-                    gifURL.addClass("still");
+                    gifURL.addClass("gif");
                     //NEED TO ADD data attributes for still and animate with urls
                     gifURL.attr("alt", "moving animal image");
 
@@ -52,43 +51,48 @@ function displayAnimalInfo() {
             };
 
         });
-    });
-}
-
-//NEED TO ADD on click toggle
-
-function createButtons() {
-    //Creates buttons from the search
-    $("#buttons-view").empty();
-
-    //Looping through the pregenerated array
-    for (var i = 0; i < animals.length; i++) {
-
-        var a = $("<button>");
-        a.addClass("animal-btn");
-        a.attr("data-animal", animals[i]);
-        a.text(animals[i]);
-        $("#buttons-view").append(a);
     }
-};
+
+    //NEED TO ADD on click toggle
+    $(document).on("click", ".gif", function(){
+        console.log("click")
+        if ($(this).attr("src") === $(this).attr("data-still")) {
+            $(this).attr("src", $(this).attr("data-animate"));
+        }else {
+            $(this).attr("src", $(this).attr("data-still"));
+        }
+    })
+
+    function createButtons() {
+        //Creates buttons from the search
+        $("#buttons-view").empty();
+
+        //Looping through the pregenerated array
+        for (var i = 0; i < animals.length; i++) {
+            var a = $("<button>");
+            a.addClass("animal-btn");
+            a.attr("data-animal", animals[i]);
+            a.text(animals[i]);
+            $("#buttons-view").append(a);
+        }
+    };
 
 
-//Click event for adding a new button to the screen and the animals array
-$("#add-animal").on("click", function(event) {
-//Allows user to press enter or click add button and prevents the form from trying to submit itself
-event.preventDefault();
+    //Click event for adding a new button to the screen and the animals array
+    $("#add-animal").on("click", function(event) {
+        //Allows user to press enter or click add button and prevents the form from trying to submit itself
+        event.preventDefault();
 
-//Grabs text from the search input box
-var animal = $("#animal-input").val().trim();
-//Adds the animal into the animals array
-animals.push(animal);
+        //Grabs text from the search input box
+        var animal = $("#animal-input").val().trim();
+        //Adds the animal into the animals array
+        animals.push(animal);
 
-//generates button for the newly added animal
-createButtons();
+        //generates button for the newly added animal
+        createButtons();
+    });
 
-});
+    $(document).on("click", ".animal-btn", displayAnimalInfo);
 
-$(document).on("click", ".animal-btn", displayAnimalInfo);
-
-createButtons();
+    createButtons();
 })
