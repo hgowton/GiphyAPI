@@ -86,7 +86,7 @@ $(document).ready(function() {
         //Grabs text from the search input box
         var emotion = $("#emotion-input").val().trim();
         //Adds the animal into the animals array
-        emotions.push(emotions);
+        emotions.push(emotion);
 
         //generates button for the newly added animal
         createButtons();
