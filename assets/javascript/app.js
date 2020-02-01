@@ -5,7 +5,7 @@ $(document).ready(function() {
         
 //queryURL to access Giphy API
 function displayAnimalInfo() {
-    $("button").on("click", function() {
+    $(document).on("click", ".animal-btn", function() {
         var animal = $(this).attr("data-animal");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=FxSy0NuHdoAdOmyUSNxmS0N5NET0TqeZ&limit=10";
 
@@ -33,13 +33,13 @@ function displayAnimalInfo() {
                     var gifURL = $("<img>");
                     gifURL.addClass("still");
                     //NEED TO ADD data attributes for still and animate with urls
+                    gifURL.attr("alt", "moving animal image");
 
 
                     //Assigning gif to image
-                    gifURL.attr("src", results[i].images.original.url);
-                    //NEED TO ADD ALT -----------
-                    // console.log(gifURL);
-                    // console.log(results[i].images.original_still.url);
+                    gifURL.attr("src", results[i].images.original_still.url);
+                    gifURL.attr("data-animate", results[i].images.original.url);
+                    gifURL.attr("data-still", results[i].images.original_still.url);
 
                     //Displaying the rating and image to the start of the animalDiv
                     animalDiv.append(p);
@@ -55,7 +55,7 @@ function displayAnimalInfo() {
     });
 }
 
-
+//NEED TO ADD on click toggle
 
 function createButtons() {
     //Creates buttons from the search
