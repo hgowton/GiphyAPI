@@ -1,48 +1,61 @@
 $(document).ready(function() {
-//Pregenerated array of buttons
-var animals = ["snake", "salamander", "beaver", "fish", "tadpole"];
-
+    //Pregenerated array of buttons
+    var animals = ["snake", "salamander", "beaver", "fish", "tadpole"];
+    
+        
 //queryURL to access Giphy API
 function displayAnimalInfo() {
-    var animal = $(this).attr("data-animal");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=FxSy0NuHdoAdOmyUSNxmS0N5NET0TqeZ&limit=10";
+    $("button").on("click", function() {
+        var animal = $(this).attr("data-animal");
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=FxSy0NuHdoAdOmyUSNxmS0N5NET0TqeZ&limit=10";
 
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function(response) {
-        var results = response.data
-        console.log(queryURL);
-        console.log(results);
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response) {
+            var results = response.data
+            console.log(results);
 
-        //Creating a div to hold the animal
-        var animalDiv = $("div class='animal'>");
+            for (var i = 0; i <results.length; i++) {
+                if (results[i].rating !== "r") {
 
-        //Storing the rating data
-        var rating = results.data.data[2].rating;
-        console.log(results.data[2].rating)
+                    //Creating a div to hold the rating and image with class of animal
+                    var animalDiv = $("<div>");
 
-        //Creating a paragraph tag to hold the rating
-        var pOne = $("<p>").text("Rating: " + rating);
+                    //Storing the rating data
+                    var rating = results[i].rating;
+                    console.log(rating)
 
-        //Displaying the rating
-        animalDiv.append(pOne);
+                    //Creating a paragraph tag to hold the rating
+                    var p = $("<p>").text("Rating: " + rating);
+                    
+                    //Creating element to hold gif
+                    var gifURL = $("<img>");
+                    gifURL.addClass("still");
+                    //NEED TO ADD data attributes for still and animate with urls
 
-        //Creating element to hold gif
-        var imgURL = response.data[2].url;
-        console.log(response.data[2].url);
 
-        //Creating the image location
-        var image = $("<img>").attr("src", imgURL);
+                    //Assigning gif to image
+                    gifURL.attr("src", results[i].images.original.url);
+                    //NEED TO ADD ALT -----------
+                    // console.log(gifURL);
+                    // console.log(results[i].images.original_still.url);
 
-        //Displaying image
-        animalDiv.append(image);
+                    //Displaying the rating and image to the start of the animalDiv
+                    animalDiv.append(p);
+                    animalDiv.append(gifURL);
 
-        //Adding the entire image and rating to the previous
-        $("#animals-view").prepend(animalDiv);
+                    //Adding the entire image and rating to the previous
+                    $("#animals-view").prepend(animalDiv);
+                }
+            
+            };
 
+        });
     });
 }
+
+
 
 function createButtons() {
     //Creates buttons from the search
