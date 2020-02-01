@@ -1,0 +1,54 @@
+body {
+    background: url("../images/cork-board.png");
+  }
+
+.testing {
+    background-color: #1F2833;
+  }
+
+p {
+    text-align: center;
+    margin-top: 5px;
+    font-family: 'Bitter', serif;
+    font-size: 20px;
+    color: #C5C6C7;
+}
+.gif {
+    width: 200px;
+    margin: 0px 5px 0px 5px;
+    border-radius: 12px;
+    height: 200px;
+
+}
+
+.bitter {
+    font-family: 'PT Sans', sans-serif;
+    color: #66FCF1;
+}
+
+.emotions {
+    float: left;
+    margin: 8px 8px 0px 0px;
+    height: 250px;
+    background-color: #1F2833;
+    border-radius: 12px;
+}
+
+.emotion-btn, #emotion-input {
+    background-color: #0B0C10;
+    color: #C5C6C7;
+    font-family: 'Bitter', serif;
+    border-radius: 4px;
+    margin: 2px;
+
+}
+
+#add-emotion {
+    color: #0B0C10;
+    background-color: #C5C6C7;
+    font-family: 'Bitter', serif;
+    font-size: 18px;
+    border-radius: 4px;
+    margin: 2px;
+    text-align: center;
+}
