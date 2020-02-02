@@ -42,20 +42,28 @@ p {
     color: #C5C6C7;
     font-family: 'Bitter', serif;
     border-radius: 4px;
-    margin: 2px;
+    margin: 3px;
 
 }
 
-.emotion-btn:hover {
+.emotion-btn:hover, #add-emotion:hover {
     opacity: 0.6;
 }
 
+#emotion-input {
+    width: 160px;
+}
+
 #add-emotion {
-    color: #0B0C10;
-    background-color: #C5C6C7;
+    background-color: #0B0C10;
+    color: #C5C6C7;
     font-family: 'Bitter', serif;
     font-size: 18px;
     border-radius: 4px;
     margin: 2px;
     text-align: center;
+}
+
+footer {
+    text-align: right;
 }
