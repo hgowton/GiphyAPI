@@ -90,6 +90,9 @@ $(document).ready(function() {
 
         //generates button for the newly added animal
         createButtons();
+
+        //Clears the select emotion field
+        $("#emotion-input").val("");
     });
 
     $(document).on("click", ".emotion-btn", displayEmotionInfo);
