@@ -6,7 +6,7 @@ $(document).ready(function() {
     //queryURL to access Giphy API
     function displayEmotionInfo() {
         var emotion = $(this).attr("data-emotion");
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + emotion + "&api_key=FxSy0NuHdoAdOmyUSNxmS0N5NET0TqeZ&limit=10";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + emotion + "&api_key=FxSy0NuHdoAdOmyUSNxmS0N5NET0TqeZ&limit=30";
 
         $.ajax({
             url: queryURL,
@@ -15,7 +15,10 @@ $(document).ready(function() {
             var results = response.data
             console.log(results);
 
-            for (var i = 0; i <results.length; i++) {
+            var randomSelection = Math.floor(Math.random()*30)
+            console.log(randomSelection)
+
+            for (var i = randomSelection; i < randomSelection+10; i++) {
                 if (results[i].rating !== "r") {
 
                     //Creating a div to hold the rating and image with class of animal
@@ -24,7 +27,6 @@ $(document).ready(function() {
 
                     //Storing the rating data
                     var rating = results[i].rating;
-                    console.log(rating)
 
                     //Creating a paragraph tag to hold the rating
                     var p = $("<p>").text("Rating: " + rating);
@@ -81,18 +83,29 @@ $(document).ready(function() {
     //Click event for adding a new button to the screen and the animals array
     $("#add-emotion").on("click", function(event) {
         //Allows user to press enter or click add button and prevents the form from trying to submit itself
-        event.preventDefault();
+        event.preventDefault();        
+        let emotionInput = $("#emotion-input").val();
 
-        //Grabs text from the search input box
-        var emotion = $("#emotion-input").val().trim();
-        //Adds the animal into the animals array
-        emotions.push(emotion);
-
-        //generates button for the newly added animal
-        createButtons();
-
-        //Clears the select emotion field
-        $("#emotion-input").val("");
+        if (emotionInput !== "") {
+            //Grabs text from the search input box
+            var emotion = $("#emotion-input").val().trim();
+            //Adds the animal into the animals array
+            emotions.push(emotion);
+            
+            //generates button for the newly added animal
+            createButtons();
+            
+            $("#alertMessage").addClass("displayNone")
+            
+            //Clears the select emotion field
+            $("#emotion-input").val("");
+        } else{
+            //Display message will appear if user does not enter something into the field and input box will clear
+            $("#alertMessage").text("Please type an emotion.")
+            $("#alertMessage").removeClass("displayNone")
+            //Clears the select emotion field
+            $("#emotion-input").val("");
+        }
     });
 
     $(document).on("click", ".emotion-btn", displayEmotionInfo);

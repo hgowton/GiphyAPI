@@ -64,6 +64,18 @@ p {
     text-align: center;
 }
 
+.displayNone {
+    display: none;
+}
+
+#alertMessage {
+    font-family: 'PT Sans', sans-serif;
+    background-color: #66FCF1;
+    color: black;
+    padding: 3px;
+    font-size: 16px;
+}
+
 footer {
     text-align: right;
 }
